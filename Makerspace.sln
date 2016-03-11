@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MakerspaceWeb", "MakerspaceWeb\MakerspaceWeb.csproj", "{B589C107-8340-43FF-90B7-DE4036C53F52}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MakerspaceWeb.Tests", "MakerspaceWeb.Tests\MakerspaceWeb.Tests.csproj", "{E93E66EC-136F-4433-8B3E-8A93B2C1B497}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B589C107-8340-43FF-90B7-DE4036C53F52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B589C107-8340-43FF-90B7-DE4036C53F52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B589C107-8340-43FF-90B7-DE4036C53F52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B589C107-8340-43FF-90B7-DE4036C53F52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E93E66EC-136F-4433-8B3E-8A93B2C1B497}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E93E66EC-136F-4433-8B3E-8A93B2C1B497}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E93E66EC-136F-4433-8B3E-8A93B2C1B497}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E93E66EC-136F-4433-8B3E-8A93B2C1B497}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

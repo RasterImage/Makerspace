@@ -1,0 +1,359 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MakerModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="MakerModelStoreContainer">
+    <EntitySet Name="Areas" EntityType="MakerModel.Store.Areas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Members" EntityType="MakerModel.Store.Members" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Classes" EntityType="MakerModel.Store.Classes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Credits" EntityType="MakerModel.Store.Credits" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AreaAssignments" EntityType="MakerModel.Store.AreaAssignments" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ClassesCredits" Association="MakerModel.Store.ClassesCredits">
+      <End Role="Classes" EntitySet="Classes" />
+      <End Role="Credits" EntitySet="Credits" />
+    </AssociationSet>
+    <AssociationSet Name="MembersCredits" Association="MakerModel.Store.MembersCredits">
+      <End Role="Members" EntitySet="Members" />
+      <End Role="Credits" EntitySet="Credits" />
+    </AssociationSet>
+    <AssociationSet Name="AreasAreaAssignments" Association="MakerModel.Store.AreasAreaAssignments">
+      <End Role="Areas" EntitySet="Areas" />
+      <End Role="AreaAssignments" EntitySet="AreaAssignments" />
+    </AssociationSet>
+    <AssociationSet Name="MembersAreaAssignments" Association="MakerModel.Store.MembersAreaAssignments">
+      <End Role="Members" EntitySet="Members" />
+      <End Role="AreaAssignments" EntitySet="AreaAssignments" />
+    </AssociationSet>
+    <AssociationSet Name="AreasClasses" Association="MakerModel.Store.AreasClasses">
+      <End Role="Areas" EntitySet="Areas" />
+      <End Role="Classes" EntitySet="Classes" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Areas">
+    <Key>
+      <PropertyRef Name="AreaId" />
+    </Key>
+    <Property Name="AreaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AreaName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="MinAge" Type="int" Nullable="false" DefaultValue="0" />
+  </EntityType>
+  <EntityType Name="Members">
+    <Key>
+      <PropertyRef Name="MemberId" />
+    </Key>
+    <Property Name="MemberId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Birthdate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Classes">
+    <Key>
+      <PropertyRef Name="ClassId" />
+    </Key>
+    <Property Name="ClassId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AreaId" Type="int" Nullable="false" />
+    <Property Name="ClassName" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Credits">
+    <Key>
+      <PropertyRef Name="CreditId" />
+    </Key>
+    <Property Name="CreditId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClassId" Type="int" Nullable="false" />
+    <Property Name="MemberId" Type="int" Nullable="false" />
+    <Property Name="StartDate" Type="datetime" Nullable="false" />
+    <Property Name="EndDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AreaAssignments">
+    <Key>
+      <PropertyRef Name="AreaAssignmentId" />
+    </Key>
+    <Property Name="AreaAssignmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AreaId" Type="int" Nullable="false" />
+    <Property Name="MemberId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="ClassesCredits">
+    <End Role="Classes" Type="MakerModel.Store.Classes" Multiplicity="1" />
+    <End Role="Credits" Type="MakerModel.Store.Credits" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Classes">
+        <PropertyRef Name="ClassId" />
+      </Principal>
+      <Dependent Role="Credits">
+        <PropertyRef Name="ClassId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MembersCredits">
+    <End Role="Members" Type="MakerModel.Store.Members" Multiplicity="1" />
+    <End Role="Credits" Type="MakerModel.Store.Credits" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Members">
+        <PropertyRef Name="MemberId" />
+      </Principal>
+      <Dependent Role="Credits">
+        <PropertyRef Name="MemberId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AreasAreaAssignments">
+    <End Role="Areas" Type="MakerModel.Store.Areas" Multiplicity="1" />
+    <End Role="AreaAssignments" Type="MakerModel.Store.AreaAssignments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Areas">
+        <PropertyRef Name="AreaId" />
+      </Principal>
+      <Dependent Role="AreaAssignments">
+        <PropertyRef Name="AreaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="MembersAreaAssignments">
+    <End Role="Members" Type="MakerModel.Store.Members" Multiplicity="1" />
+    <End Role="AreaAssignments" Type="MakerModel.Store.AreaAssignments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Members">
+        <PropertyRef Name="MemberId" />
+      </Principal>
+      <Dependent Role="AreaAssignments">
+        <PropertyRef Name="MemberId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AreasClasses">
+    <End Role="Areas" Type="MakerModel.Store.Areas" Multiplicity="1" />
+    <End Role="Classes" Type="MakerModel.Store.Classes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Areas">
+        <PropertyRef Name="AreaId" />
+      </Principal>
+      <Dependent Role="Classes">
+        <PropertyRef Name="AreaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="MakerModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="MakerModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Areas" EntityType="MakerModel.Areas" />
+          <EntitySet Name="Members" EntityType="MakerModel.Members" />
+          <EntitySet Name="Classes" EntityType="MakerModel.Classes" />
+          <EntitySet Name="Credits" EntityType="MakerModel.Credits" />
+          <AssociationSet Name="ClassesCredits" Association="MakerModel.ClassesCredits">
+            <End Role="Classes" EntitySet="Classes" />
+            <End Role="Credits" EntitySet="Credits" />
+          </AssociationSet>
+          <AssociationSet Name="MembersCredits" Association="MakerModel.MembersCredits">
+            <End Role="Members" EntitySet="Members" />
+            <End Role="Credits" EntitySet="Credits" />
+          </AssociationSet>
+          <EntitySet Name="AreaAssignments" EntityType="MakerModel.AreaAssignments" />
+          <AssociationSet Name="AreasAreaAssignments" Association="MakerModel.AreasAreaAssignments">
+            <End Role="Areas" EntitySet="Areas" />
+            <End Role="AreaAssignments" EntitySet="AreaAssignments" />
+          </AssociationSet>
+          <AssociationSet Name="MembersAreaAssignments" Association="MakerModel.MembersAreaAssignments">
+            <End Role="Members" EntitySet="Members" />
+            <End Role="AreaAssignments" EntitySet="AreaAssignments" />
+          </AssociationSet>
+          <AssociationSet Name="AreasClasses" Association="MakerModel.AreasClasses">
+            <End Role="Areas" EntitySet="Areas" />
+            <End Role="Classes" EntitySet="Classes" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Areas">
+          <Key>
+            <PropertyRef Name="AreaId" />
+          </Key>
+          <Property Name="AreaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AreaName" Type="String" Nullable="false" />
+          <Property Name="MinAge" Type="Int32" Nullable="false" DefaultValue="0" />
+          <NavigationProperty Name="AreaAssignments" Relationship="MakerModel.AreasAreaAssignments" FromRole="Areas" ToRole="AreaAssignments" />
+          <NavigationProperty Name="Classes" Relationship="MakerModel.AreasClasses" FromRole="Areas" ToRole="Classes" />
+        </EntityType>
+        <EntityType Name="Members">
+          <Key>
+            <PropertyRef Name="MemberId" />
+          </Key>
+          <Property Name="MemberId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" />
+          <Property Name="LastName" Type="String" Nullable="false" />
+          <Property Name="Birthdate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Credits" Relationship="MakerModel.MembersCredits" FromRole="Members" ToRole="Credits" />
+          <NavigationProperty Name="AreaAssignments" Relationship="MakerModel.MembersAreaAssignments" FromRole="Members" ToRole="AreaAssignments" />
+        </EntityType>
+        <EntityType Name="Classes">
+          <Key>
+            <PropertyRef Name="ClassId" />
+          </Key>
+          <Property Name="ClassId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AreaId" Type="Int32" Nullable="false" />
+          <Property Name="ClassName" Type="String" Nullable="false" />
+          <NavigationProperty Name="Credits" Relationship="MakerModel.ClassesCredits" FromRole="Classes" ToRole="Credits" />
+          <NavigationProperty Name="Area" Relationship="MakerModel.AreasClasses" FromRole="Classes" ToRole="Areas" />
+        </EntityType>
+        <EntityType Name="Credits">
+          <Key>
+            <PropertyRef Name="CreditId" />
+          </Key>
+          <Property Name="CreditId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClassId" Type="Int32" Nullable="false" />
+          <Property Name="MemberId" Type="Int32" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Class" Relationship="MakerModel.ClassesCredits" FromRole="Credits" ToRole="Classes" />
+          <NavigationProperty Name="Member" Relationship="MakerModel.MembersCredits" FromRole="Credits" ToRole="Members" />
+        </EntityType>
+        <Association Name="ClassesCredits">
+          <End Type="MakerModel.Classes" Role="Classes" Multiplicity="1" />
+          <End Type="MakerModel.Credits" Role="Credits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Classes">
+              <PropertyRef Name="ClassId" />
+            </Principal>
+            <Dependent Role="Credits">
+              <PropertyRef Name="ClassId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MembersCredits">
+          <End Type="MakerModel.Members" Role="Members" Multiplicity="1" />
+          <End Type="MakerModel.Credits" Role="Credits" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Members">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="Credits">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="AreaAssignments">
+          <Key>
+            <PropertyRef Name="AreaAssignmentId" />
+          </Key>
+          <Property Name="AreaAssignmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AreaId" Type="Int32" Nullable="false" />
+          <Property Name="MemberId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Area" Relationship="MakerModel.AreasAreaAssignments" FromRole="AreaAssignments" ToRole="Areas" />
+          <NavigationProperty Name="Member" Relationship="MakerModel.MembersAreaAssignments" FromRole="AreaAssignments" ToRole="Members" />
+          <Property Name="IsSteward" Type="Boolean" Nullable="false" DefaultValue="False" />
+        </EntityType>
+        <Association Name="AreasAreaAssignments">
+          <End Type="MakerModel.Areas" Role="Areas" Multiplicity="1" />
+          <End Type="MakerModel.AreaAssignments" Role="AreaAssignments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Areas">
+              <PropertyRef Name="AreaId" />
+            </Principal>
+            <Dependent Role="AreaAssignments">
+              <PropertyRef Name="AreaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MembersAreaAssignments">
+          <End Type="MakerModel.Members" Role="Members" Multiplicity="1" />
+          <End Type="MakerModel.AreaAssignments" Role="AreaAssignments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Members">
+              <PropertyRef Name="MemberId" />
+            </Principal>
+            <Dependent Role="AreaAssignments">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AreasClasses">
+          <End Type="MakerModel.Areas" Role="Areas" Multiplicity="1" />
+          <End Type="MakerModel.Classes" Role="Classes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Areas">
+              <PropertyRef Name="AreaId" />
+            </Principal>
+            <Dependent Role="Classes">
+              <PropertyRef Name="AreaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MakerModelStoreContainer" CdmEntityContainer="MakerModelContainer">
+    <EntitySetMapping Name="Areas">
+      <EntityTypeMapping TypeName="IsTypeOf(MakerModel.Areas)">
+        <MappingFragment StoreEntitySet="Areas">
+          <ScalarProperty Name="AreaId" ColumnName="AreaId" />
+          <ScalarProperty Name="AreaName" ColumnName="AreaName" />
+          <ScalarProperty Name="MinAge" ColumnName="MinAge" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Members">
+      <EntityTypeMapping TypeName="IsTypeOf(MakerModel.Members)">
+        <MappingFragment StoreEntitySet="Members">
+          <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Birthdate" ColumnName="Birthdate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Classes">
+      <EntityTypeMapping TypeName="IsTypeOf(MakerModel.Classes)">
+        <MappingFragment StoreEntitySet="Classes">
+          <ScalarProperty Name="ClassId" ColumnName="ClassId" />
+          <ScalarProperty Name="AreaId" ColumnName="AreaId" />
+          <ScalarProperty Name="ClassName" ColumnName="ClassName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Credits">
+      <EntityTypeMapping TypeName="IsTypeOf(MakerModel.Credits)">
+        <MappingFragment StoreEntitySet="Credits">
+          <ScalarProperty Name="CreditId" ColumnName="CreditId" />
+          <ScalarProperty Name="ClassId" ColumnName="ClassId" />
+          <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AreaAssignments">
+      <EntityTypeMapping TypeName="IsTypeOf(MakerModel.AreaAssignments)">
+        <MappingFragment StoreEntitySet="AreaAssignments">
+          <ScalarProperty Name="AreaAssignmentId" ColumnName="AreaAssignmentId" />
+          <ScalarProperty Name="AreaId" ColumnName="AreaId" />
+          <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
